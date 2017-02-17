@@ -42,5 +42,24 @@
       </div>
       <% end %>
     </div>
+
+
+    <h2>WRITE A REVIEW</h2>
+
+      <div>
+        <%= form_for([@product, @product.reviews.build]) do |f| %>
+          <p>
+            <%= f.label :rating %><br>
+            <%= f.text_field :rating %>
+          </p>
+          <p>
+            <%= f.label :description %><br>
+            <%= f.text_area :description %>
+          </p>
+          <p>
+            <%= f.submit %>
+          </p>
+        <% end %>
+      </div>
   </article>
 </section>
