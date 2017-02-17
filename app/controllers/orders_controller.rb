@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    # @line_item = LineItem.where(order_id: params[:id])
   end
 
   def create
@@ -11,7 +10,9 @@ class OrdersController < ApplicationController
 
     if order.valid?
       empty_cart!
-      OrderMailer.receipt_email(@order).deliver_later
+      puts "--------THIS IS @ORDER:"
+      puts @order
+      OrderMailer.receipt_email(order).deliver_later
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, error: order.errors.full_messages.first
