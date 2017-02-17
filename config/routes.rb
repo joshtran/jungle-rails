@@ -20,9 +20,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
-  get '/login' => 'sessions#new'
+  get '/login' => 'sessions#new', as: :login
   post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
+  get '/logout' => 'sessions#destroy', as: :logout
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -79,3 +79,4 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 end
+
