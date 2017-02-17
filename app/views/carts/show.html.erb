@@ -1,5 +1,10 @@
 <section class="cart-show">
 
+<% if @cart_total = 0 %>
+  <p>It looks like your cart is empty! Continue shopping <%= link_to "here:", root_path %></p>
+
+<% else %>
+
   <header class="page-header">
     <h1>My Cart</h1>
   </header>
@@ -49,5 +54,7 @@
       <% end %>
     </div>
   </div>
+
+  <% end %>
 
 </section>
