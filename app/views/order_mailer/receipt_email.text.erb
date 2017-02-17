@@ -1,0 +1,11 @@
+Hello, Customer!
+===============================================
+
+Thanks for your order. Here is the total and each item in your order:
+
+<% @order.line_items.each do |line_item| %>
+  <% if product = Product.find_by(id: @line_item.product_id) %>
+    ITEM: <%= product.name %> X <%= quantity %>
+    TOTAL: <%= product.price * line_item.quantity %>
+    <% end %>
+<% end %>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello, Customer!</h1>
+    <p>
+      Thanks for your order. Here is the total and each item in your order<br>
+    </p>
+    <table>
+    <% @order.line_items.each do |line_item| %>
+      <% if product = Product.find_by(id: @line_item.product_id) %>
+        <tr>
+          <td>
+            <h4><%= product.name %></h4>
+          </td>
+          <td>
+            X <%= quantity %>
+          </td>
+          <td>
+            <%= product.price * line_item.quantity %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+    </table>
+  </body>
+</html>
