@@ -222,5 +222,18 @@ review14 = product12.reviews.create!({
   rating: 5,
 })
 
+## USERS
+
+puts "Creating Users ..."
+
+User.destroy_all
+
+user1 = User.create!({
+  first_name:  'Joe',
+  last_name: 'Schmoe',
+  email: 'joeschmoe@example.com',
+  password_digest: 'awelkf20913of31no31fd'
+})
+
 
 puts "DONE!"

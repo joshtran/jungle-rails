@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def reviewer(user_id)
+    @reviewer = User.find(user_id)
+    "#{@reviewer.first_name} #{@reviewer.last_name}"
+  end
+  helper_method :reviewer
+
   def authorize
     redirect_to '/login' unless current_user
   end
