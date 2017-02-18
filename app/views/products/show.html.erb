@@ -28,8 +28,11 @@
 
     <h2>REVIEWS</h2>
     <!-- Display reviews -->
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
     <div class="row">
-      <% @product.reviews.each do |review| %>
+      <% @product.reviews.reverse.each do |review| %>
       <div class="col-sm-8">
         <dl class="dl-horizontal">
           <dt>User name</dt>
@@ -38,14 +41,18 @@
           <dd><%= review.rating %></dd>
           <dt>Review</dt>
           <dd><%= review.description %></dd>
+          <% if current_user && current_user.id == review.user_id %>
+          <dd><%= link_to product_review_delete_path(review_id: review.id, product_id: review.product_id), class: 'btn btn-xs btn-default btn-danger', method: :delete do %>  Delete<% end %></dd>
+          <% end %>
         </dl>
+
+
       </div>
       <% end %>
     </div>
 
-
+    <% if current_user %>
     <h2>WRITE A REVIEW</h2>
-
       <div>
         <%= form_for([@product, @product.reviews.build]) do |f| %>
           <p>
@@ -56,9 +63,10 @@
             <%= f.label :description %><br>
             <%= f.text_area :description %>
           </p>
-            <%= f.submit %>
+            <%= f.submit class: 'btn btn-default' %>
           </p>
         <% end %>
       </div>
+    <% end %>
   </article>
 </section>
