@@ -5,57 +5,56 @@ RSpec.describe Product, type: :model do
 
   describe 'Validations' do
 
-    it 'should have all validations met' do
+    it 'should save successfully with all validations' do
       @category = Category.find_or_create_by! name: 'test'
-      @product = @category.products.create!({
+      @product = @category.products.new({
         name:  'Test item',
         quantity: 10,
         price: 64.99
       })
-      expect(@product.category).to be_present
-      expect(@product.category).to be_present
-      expect(@product.category).to be_present
-      expect(@product.category).to be_present
+      expect(@product.save).to be true
     end
 
-    it 'should have a category' do
-      @category = nil
-      @product = @category.products.create!({
+    it 'should not save due to missing category' do
+      @product = Product.create({
         name:  nil,
         quantity: 10,
         price: 64.99
       })
-      expect(@product.category).to be_present
+      expect(@product.errors.full_messages).to include("Category can't be blank")
     end
 
-    it 'should have a name' do
+    it 'should not save due to missing name' do
       @category = Category.find_or_create_by! name: 'test'
-      @product = @category.products.create!({
+      @product = @category.products.new({
         name:  nil,
         quantity: 10,
         price: 64.99
       })
-      expect(@product.name).to be_present
+      @product.save
+      expect(@product.errors.full_messages).to include("Name can't be blank")
     end
 
-    it 'should have quantity value' do
+    it 'should not save due to missing quantity value' do
       @category = Category.find_or_create_by! name: 'test'
-      @product = @category.products.create!({
+      @product = @category.products.new({
         name:  'Test item',
         quantity: nil,
         price: 64.99
       })
-      expect(@product.quantity).to be_present
+      @product.save
+      expect(@product.errors.full_messages).to include("Quantity can't be blank")
     end
 
-    it 'should have a price' do
+    it 'should not save due to missing price' do
       @category = Category.find_or_create_by! name: 'test'
-      @product = @category.products.create!({
+      @product = @category.products.new({
         name:  'Test item',
         quantity: 10,
         price: nil
       })
-      expect(@product.price).to be_present
+      @product.save
+      expect(@product.errors.full_messages).to include("Price can't be blank")
     end
 
 
