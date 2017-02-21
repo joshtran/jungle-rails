@@ -85,6 +85,42 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Last name can't be blank")
     end
 
+    it 'should not save user due to missing password' do
+      @user = User.new({
+        first_name:  'Jon',
+        last_name: 'Doe',
+        email: 'jondoe@EXAMPLE.com',
+        password: nil,
+        password_confirmation: 'testpass'
+      })
+      @user.save
+      expect(@user.errors.full_messages).to include("Password can't be blank")
+    end
+
+    it 'should not save user due to missing password confirmation' do
+      @user = User.new({
+        first_name:  'Jon',
+        last_name: 'Doe',
+        email: 'jondoe@EXAMPLE.com',
+        password: 'testpass',
+        password_confirmation: nil
+      })
+      @user.save
+      expect(@user.errors.full_messages).to include("Password confirmation can't be blank")
+    end
+
+     it 'should not save user due password length' do
+      @user = User.new({
+        first_name:  'Jon',
+        last_name: 'Doe',
+        email: 'jondoe@EXAMPLE.com',
+        password: 'pw',
+        password_confirmation: 'pw'
+      })
+      @user.save
+      expect(@user.errors.full_messages).to include("Password is too short (minimum is 4 characters)")
+    end
+
 
   end
 
