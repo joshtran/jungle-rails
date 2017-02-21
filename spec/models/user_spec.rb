@@ -130,12 +130,12 @@ RSpec.describe User, type: :model do
       @user = User.new({
         first_name:  'Jon',
         last_name: 'Doe',
-        email: 'joendoe@example.com',
+        email: 'jondoe@example.com',
         password: 'testpass',
         password_confirmation: 'testpass'
       })
       @user.save
-      @authenticated_user = User.authenticate_with_credentials('joendoe@example.com', 'testpass')
+      @authenticated_user = User.authenticate_with_credentials('jondoe@example.com', 'testpass')
 
       expect(@authenticated_user).to be_present
 
@@ -146,14 +146,46 @@ RSpec.describe User, type: :model do
       @user = User.new({
         first_name:  'Jon',
         last_name: 'Doe',
-        email: 'joendoe@example.com',
+        email: 'jondoe@example.com',
         password: 'testpass',
         password_confirmation: 'testpass'
       })
       @user.save
-      @authenticated_user = User.authenticate_with_credentials('joendoe@example.com', 'pass')
+      @authenticated_user = User.authenticate_with_credentials('jondoe@example.com', 'pass')
 
       expect(@authenticated_user).to be_nil
+
+    end
+
+    it 'should return an instance of the user even if there are extra spaces in the email' do
+
+      @user = User.new({
+        first_name:  'Jon',
+        last_name: 'Doe',
+        email: 'jondoe@example.com',
+        password: 'testpass',
+        password_confirmation: 'testpass'
+      })
+      @user.save
+      @authenticated_user = User.authenticate_with_credentials(' jondoe@example.com ', 'testpass')
+
+      expect(@authenticated_user).to be_present
+
+    end
+
+    it 'should return an instance of the user even if the wrong case is used for their email' do
+
+      @user = User.new({
+        first_name:  'Jon',
+        last_name: 'Doe',
+        email: 'jondoe@example.com',
+        password: 'testpass',
+        password_confirmation: 'testpass'
+      })
+      @user.save
+      @authenticated_user = User.authenticate_with_credentials(' jonDOE@example.COM ', 'testpass')
+
+      expect(@authenticated_user).to be_present
 
     end
 
