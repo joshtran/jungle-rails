@@ -12,9 +12,9 @@
     <% @order.line_items.each do |line_item| %>
       <% if product = Product.find_by(id: line_item.product_id) %>
         <div>
-          <h4><%= product.name %></h4>
-           <p>Quantity: <%= line_item.quantity %></p>
-           <p><%= product.price * line_item.quantity %></p>
+           <p><strong>Item: </strong><%= product.name %></p>
+           <p><strong>Quantity:</strong> <%= line_item.quantity %></p>
+           <p><strong>Total:</strong> <%= product.price * line_item.quantity %></p>
         </div>
       <% end %>
     <% end %>

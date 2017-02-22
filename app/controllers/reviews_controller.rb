@@ -16,9 +16,8 @@ class ReviewsController < ApplicationController
 
   end
 
-  def delete
-    review_id = params[:review_id].to_s
-    @delete_review = Review.find(review_id).destroy
+  def destroy
+    @delete_review = Review.find(params[:id]).destroy
     flash[:success] = "Review deleted succcesfully."
     redirect_to :back
   end
@@ -30,7 +29,6 @@ class ReviewsController < ApplicationController
 
 end
 
-# product_path(@product)
 
 # Write out the logic for the create using the following CRUD approach:
 

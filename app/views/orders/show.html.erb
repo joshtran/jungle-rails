@@ -23,10 +23,10 @@
           <%= render 'item', product_id: line_item.product_id, quantity: line_item.quantity %>
         <% end %>
         <tr>
-          <td><h4>Final total:</h4> $<%= @order.total_cents / 100 %></td>
+          <td colspan="5"><span class="order-total"><strong>Final total:</strong> $<%= @order.total_cents / 100 %></span></td>
         </tr>
         <tr>
-          <td><h4>Email used:</h4> <%= @order.email %></td>
+          <td colspan="5"><span class="order-total"><strong>Email used:</strong> <%= @order.email %></span></td>
         </tr>
       </tbody>
       <tfoot>

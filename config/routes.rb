@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   root to: 'products#index'
 
   resources :products, only: [:index, :show] do
-    resources :reviews, only: [:create, :destroy] do
-      delete :delete
-    end
+    resources :reviews, only: [:create, :destroy]
   end
 
 
@@ -21,7 +19,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
-    resources :categories, except: [:delete, :edit, :update, :show]
+    resources :categories, except: [:destroy, :edit, :update, :show]
   end
 
   resources :users, only: [:new, :create]
